@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Molineux Mix Reader</title>
+<style>
+  :root { --bg:#fff; --fg:#111; --mut:#666; --card:#f4f4f5; --acc:#fdb913; }
+  @media (prefers-color-scheme: dark) { :root { --bg:#000; --fg:#eee; --mut:#999; --card:#1a1a1e; } }
+  body { margin:0; padding:20px 18px 60px; background:var(--bg); color:var(--fg); font:17px/1.5 -apple-system,system-ui,sans-serif; max-width:560px; margin-inline:auto; }
+  h1 { font-size:26px; margin:6px 0 4px; }
+  p.sub { color:var(--mut); margin-top:0; }
+  .copy { display:block; width:100%; font:inherit; font-weight:700; font-size:19px; padding:16px; border:0; border-radius:14px; background:var(--acc); color:#000; margin:18px 0 6px; }
+  .done { text-align:center; color:var(--mut); min-height:1.5em; }
+  ol { padding-left:22px; } li { margin:10px 0; }
+  b.k { background:var(--card); padding:1px 7px; border-radius:6px; font-weight:600; }
+  textarea { width:100%; box-sizing:border-box; height:80px; font:13px ui-monospace,monospace; background:var(--card); color:var(--fg); border:0; border-radius:10px; padding:8px; }
+  details { margin-top:24px; color:var(--mut); }
+  a { color:#c98a00; }
+</style>
+</head>
+<body>
+  <h1>Molineux Mix Reader</h1>
+  <p class="sub">Ad-free, clean view of Molineux Mix on your iPhone, with a Live button for comms threads.</p>
+
+  <button class="copy" id="copy">1. Copy the bookmark code</button>
+  <div class="done" id="done"></div>
+
+  <ol start="2">
+    <li>Tap the <b class="k">Share</b> button below and choose <b class="k">Add Bookmark</b>. Name it <b class="k">MM</b> and tap Save. (It saves this page; we'll swap the address next.)</li>
+    <li>Tap the <b class="k">book icon</b> (Bookmarks), then <b class="k">Edit</b>, and tap the <b class="k">MM</b> bookmark.</li>
+    <li>Tap the address line under the name, clear it (the ⓧ), then <b class="k">Paste</b>. Tap Done.</li>
+  </ol>
+
+  <h2 style="font-size:19px;margin-top:26px">Using it</h2>
+  <p>Open any <a href="https://www.molineuxmix.co.uk/forum/index.php?forums/molineux-mix.28/">Molineux Mix page</a>, tap the address bar, type <b class="k">MM</b> and tap the bookmark when it appears.</p>
+  <p>On a thread, tap <b class="k">Live</b> to jump to the newest post and get new posts every 20 seconds. Tap <b class="k">‹</b> for the thread list.</p>
+
+  <details>
+    <summary>Copy didn't work?</summary>
+    <p>Press and hold in the box, Select All, Copy:</p>
+    <textarea id="code" readonly></textarea>
+  </details>
+
+<script>
+  var code = "javascript:(function(){var s=document.createElement('script');s.src='" +
+    new URL('reader.js', location.href).href +
+    "?v='+Date.now();document.documentElement.appendChild(s)})()";
+  document.getElementById('code').value = code;
+  document.getElementById('copy').onclick = function () {
+    var done = document.getElementById('done');
+    var ok = function () { done.textContent = 'Copied. Now do step 2.'; };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(code).then(ok, fallback);
+    } else fallback();
+    function fallback() {
+      var t = document.getElementById('code');
+      t.closest('details').open = true;
+      t.removeAttribute('readonly'); t.focus(); t.setSelectionRange(0, code.length);
+      done.textContent = document.execCommand('copy') ? 'Copied. Now do step 2.' : 'Copy it from the box below.';
+      t.setAttribute('readonly', '');
+    }
+  };
+</script>
+</body>
+</html>
