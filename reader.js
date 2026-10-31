@@ -16,7 +16,7 @@
     ':root{--bg:#fff;--fg:#111;--mut:#6b6b6b;--card:#f4f4f5;--line:#e4e4e7;--acc:#c98a00;--q:#ececef}',
     '@media(prefers-color-scheme:dark){:root{--bg:#000;--fg:#ececec;--mut:#9a9a9a;--card:#16161a;--line:#2a2a2e;--acc:#fdb913;--q:#222228}}',
     '*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--fg)}',
-    'body{font:17px/1.45 -apple-system,system-ui,sans-serif;-webkit-text-size-adjust:100%;padding-bottom:90px}',
+    'body{font:17px/1.45 -apple-system,system-ui,sans-serif;-webkit-text-size-adjust:none;padding-bottom:90px}',
     'a{color:var(--acc)}',
     '#bar{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--line);padding:8px 12px calc(8px) ;display:flex;gap:8px;align-items:center}',
     '#bar h1{font-size:15px;margin:0;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}',
@@ -25,9 +25,9 @@
     '.post{padding:12px;border-bottom:1px solid var(--line)}',
     '.meta{display:flex;gap:8px;align-items:baseline;font-size:14px;color:var(--mut);margin-bottom:4px}',
     '.meta b{color:var(--fg);font-size:15px}.meta .n{margin-left:auto}',
-    '.body{overflow-wrap:anywhere}.body img{max-width:100%;height:auto}',
+    '.body{overflow-wrap:anywhere}.body img{max-width:100~;height:auto}',
     '.body img.smilie{width:1.25em;height:1.25em;vertical-align:-.2em}',
-    '.body iframe{max-width:100%}',
+    '.body iframe{max-width:100~}',
     'blockquote{margin:6px 0;padding:6px 10px;background:var(--q);border-left:3px solid var(--acc);border-radius:6px;font-size:15px}',
     'blockquote .qc{max-height:4.4em;overflow:hidden}blockquote.open .qc{max-height:none}',
     'blockquote .qt{font-size:13px;color:var(--mut);font-weight:600}',
@@ -37,10 +37,10 @@
     '.th{display:block;padding:12px;border-bottom:1px solid var(--line);color:var(--fg);text-decoration:none}',
     '.th .t{font-weight:600}.th.unread .t{color:var(--acc)}.th .s{font-size:13px;color:var(--mut);margin-top:2px}',
     '.th .l{float:right;margin-left:8px}',
-    '#pill{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:6;display:none;background:var(--acc);color:#000;border:0;font-weight:600;box-shadow:0 2px 10px rgba(0,0,0,.3)}',
-    '#reply{padding:12px;border-top:1px solid var(--line)}#reply textarea{width:100%;min-height:90px;font:inherit;background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:10px;padding:8px}',
+    '#pill{position:fixed;left:50~;bottom:calc(20px + env(safe-area-inset-bottom));transform:translateX(-50~);z-index:6;display:none;background:var(--acc);color:#000;border:0;font-weight:600;box-shadow:0 2px 10px rgba(0,0,0,.3)}',
+    '#reply{padding:12px;border-top:1px solid var(--line)}#reply textarea{width:100~;min-height:90px;font:inherit;background:var(--card);color:var(--fg);border:1px solid var(--line);border-radius:10px;padding:8px}',
     '#msg{padding:30px 12px;text-align:center;color:var(--mut)}'
-  ].join('');
+  ].join('').replace(/~/g, String.fromCharCode(37)); // no literal percent signs, so the bookmarklet needs no escaping
 
   // document.open() also wipes every event listener the site added (some swallow taps).
   D.open();
